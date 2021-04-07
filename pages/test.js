@@ -26,44 +26,50 @@ const dashboardRoutes = [];
 
 const useStyles = makeStyles(styles);
 
-import { ApolloClient, InMemoryCache, gql } from "@apollo/client";
+import { gql, useQuery } from "@apollo/client";
 
-const client = new ApolloClient({
-  uri: "http://localhost:4000/",
-  cache: new InMemoryCache(),
-});
-
-client
-  .query({
-    query: gql`
-      query Books {
-        books {
-          title
-          author
+const BOOKS = gql`
+  query Query {
+    libraries {
+      books {
+        id
+        author {
+          name
         }
       }
-    `,
-  })
-  .then((result) => console.log(result));
+    }
+  }
+`;
 
 export default function LandingPage(props) {
   const classes = useStyles();
-  const { ...rest } = props;
+
   return (
     <div>
-      <div className="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4">
-        <div className="flex-shrink-0">
-          <img
-            className="h-12 w-12"
-            src="/img/logo.svg"
-            alt="ChitChat Logo"
-          ></img>
-        </div>
+      <div className="p-6 max-w-sm mx-auto bg-blue-500 rounded-xl shadow-md flex items-center space-x-4">
+        <div className="flex-shrink-0"></div>
         <div>
           <div className="text-xl font-medium text-black">ChitChast</div>
-          <p className="text-blue-500">You have a new message!</p>
+          <p className="text-black">You have a new message!</p>
         </div>
       </div>
+      <Books></Books>
     </div>
+  );
+}
+
+function Books() {
+  const { loading, error, data } = useQuery(BOOKS);
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+  return data.libraries.map((library) =>
+    library.books.map((book) => {
+      console.log(book.id);
+      return (
+        <div key={book.id}>
+          <div>{book.author.name}</div>
+        </div>
+      );
+    })
   );
 }

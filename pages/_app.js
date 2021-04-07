@@ -20,6 +20,7 @@ import ReactDOM from "react-dom";
 import App from "next/app";
 import Head from "next/head";
 import Router from "next/router";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 
 import PageChange from "components/PageChange/PageChange.js";
 
@@ -41,6 +42,11 @@ Router.events.on("routeChangeComplete", () => {
 Router.events.on("routeChangeError", () => {
   ReactDOM.unmountComponentAtNode(document.getElementById("page-transition"));
   document.body.classList.remove("body-page-transition");
+});
+
+const client = new ApolloClient({
+  uri: "http://localhost:4000/",
+  cache: new InMemoryCache(),
 });
 
 export default class MyApp extends App {
@@ -79,9 +85,13 @@ export default class MyApp extends App {
     return (
       <React.Fragment>
         <Head>
+          <meta name="Description" content="Put your description here."></meta>
           <title>NextJS Material Kit by Creative Tim</title>
         </Head>
-        <Component {...pageProps} />
+        <ApolloProvider client={client}>
+          {" "}
+          <Component {...pageProps} />{" "}
+        </ApolloProvider>
       </React.Fragment>
     );
   }

@@ -85,7 +85,7 @@ export default class MyApp extends App {
     return (
       <React.Fragment>
         <Head>
-          <meta name="Description" content="Put your description here."></meta>
+          <meta name="description" content="Put your description here."></meta>
           <title>NextJS Material Kit by Creative Tim</title>
         </Head>
         <ApolloProvider client={client}>

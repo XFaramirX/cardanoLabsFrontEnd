@@ -13,6 +13,14 @@ import GridItem from "components/Grid/GridItem.js";
 import Button from "components/CustomButtons/Button.js";
 import HeaderLinks from "components/Header/HeaderLinks.js";
 import Parallax from "components/Parallax/Parallax.js";
+import Dialog from "@material-ui/core/Dialog";
+import LibraryBooks from "@material-ui/icons/LibraryBooks";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import IconButton from "@material-ui/core/IconButton";
+import Close from "@material-ui/icons/Close";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogActions from "@material-ui/core/DialogActions";
+import Slide from "@material-ui/core/Slide";
 
 import styles from "assets/jss/nextjs-material-kit/pages/landingPage.js";
 
@@ -70,7 +78,7 @@ export default function LandingPage(props) {
         <Header
           color="transparent"
           routes={dashboardRoutes}
-          brand="AngelBernal"
+          brand="Cardanolab.art"
           rightLinks={<HeaderLinks />}
           fixed
           changeColorOnScroll={{
@@ -100,15 +108,13 @@ export default function LandingPage(props) {
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                   <div className="lg:text-center">
                     <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">
-                      Transactions
+                      Welcome to CardanoLabs.Art
                     </h2>
                     <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                      A better way to send money
+                      The NFT Marketplace.
                     </p>
                     <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                      Lorem ipsum dolor sit amet consect adipisicing elit.
-                      Possimus magnam voluptatum cupiditate veritatis in
-                      accusamus quisquam.
+                      All Products
                     </p>
                   </div>
                 </div>
@@ -153,37 +159,62 @@ function Users() {
   return <div>hello</div>;
 }
 
+const Transition = React.forwardRef(function Transition(props, ref) {
+  return <Slide direction="down" ref={ref} {...props} />;
+});
+
+Transition.displayName = "Transition";
+
 function ImageCard({ images }) {
+  const classes = useStyles();
   const { id, title, url } = images;
+  const [classicModal, setClassicModal] = React.useState(false);
   console.log("IMAGE" + title);
   return (
-    <div className="max-w-sm rounded overflow-hidden shadow-lg" key={id}>
-      <img alt="" className="w-full" src={url}></img>
-      <div className="px-6 py-4">
-        <div className="font-bold text-purple-500 text-xl mb-2"></div>
-        <ul>
-          <li className="font-bold text-black text-sm mb-2">
-            <strong>{title}:</strong> 400
-          </li>
-          <li className="font-bold text-black text-sm mb-2">
-            <strong>Price:</strong> 400
-          </li>
-          <li className="font-bold text-black text-sm mb-2">
-            <strong>Details:</strong> 400
-          </li>
-        </ul>
+    <div className="each mb-10 m-2 shadow-lg border-gray-800 bg-gray-100 relative gallery-image">
+      <img className="w-full" src={url} alt="" />
+      <div className="badge absolute top-0 right-0 bg-indigo-500 m-1 text-gray-200 p-1 px-2 text-xs font-bold rounded">
+        Sold
       </div>
-      <div className="px-6 py-4">
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-          #tag1
+      <div className="info-box text-xs flex p-1 font-semibold text-gray-500 bg-gray-300">
+        <span className="mr-1 p-1 px-2 font-bold">105 views</span>
+        <span className="mr-1 p-1 px-2 font-bold border-l border-gray-400">
+          105 Likes
         </span>
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-          #tag1
-        </span>
-        <span className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
-          #tag1
+        <span className="mr-1 p-1 px-2 font-bold border-l border-gray-400">
+          105 Dislikes
         </span>
       </div>
+      <div className="desc p-4 text-gray-800">
+        <a
+          href="https://www.youtube.com/watch?v=dvqT-E74Qlo"
+          target="_new"
+          className="title font-bold block cursor-pointer hover:underline"
+        >
+          Pubg Mobile Custom Room (Unlimited)
+        </a>
+        <a
+          href="https://www.youtube.com/user/sam14319"
+          target="_new"
+          className="badge bg-indigo-500 text-blue-100 rounded px-1 text-xs font-bold cursor-pointer"
+        >
+          @dynamo_gaming
+        </a>
+        <span className="description text-sm block py-2 border-gray-400 mb-2">
+          lorem ipsum bekhum bukhum !lorem ipsum bekhum bukhum !
+        </span>
+      </div>
+      <style jsx>{`
+        img {
+          height: 300px;
+          object-fit: contain;
+        }
+      `}</style>
+      <style jsx global>{`
+        p {
+          font-size: 18px;
+        }
+      `}</style>
     </div>
   );
 }
@@ -194,8 +225,8 @@ function ImageList() {
   if (error) return <p>Error :(</p>;
   console.log(data.images);
   return (
-    <div className="container mx-auto">
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2  md:grid-cols-3  lg:grid-cols-4">
+    <div className="">
+      <div className="holder mx-auto w-10/12 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {data.images.map((image) => (
           <ImageCard images={image} key={image.id} />
         ))}
@@ -218,12 +249,6 @@ function HeroContent() {
             allowing Artists, Investors and Collectors the opportunity to mint
             their collections on this explosion of interest in NFTS.
           </p>
-          <br></br>
-          <p>
-            Each of these unique and very rare Limited Edition "oleo paintings"
-            Art based is being minted on the Cardano Blockchain as a Non
-            Fungible Token (NFT).
-          </p>
         </div>
       </GridItem>
       <GridItem xs={12} sm={6} md={7}>
@@ -235,30 +260,54 @@ function HeroContent() {
                 tabName: "Buy",
                 tabIcon: Face,
                 tabContent: (
-                  <p className={classes.textCenter}>
-                    I think that’s a responsibility that I have, to push
-                    possibilities, to show people, this is the level that things
-                    could be at. So when you get something that has the name
-                    Kanye West on it, it’s supposed to be pushing the furthest
-                    possibilities. I will be the leader of a company that ends
-                    up being worth billions of dollars, because I got the
-                    answers. I understand culture. I am the nucleus.
-                  </p>
+                  <div>
+                    <p className={classes.textCenter}>
+                      Each of these unique and very rare Limited Edition
+                      "paintings" Art based is being minted on the Cardano
+                      Blockchain as a Non Fungible Token (NFT).
+                    </p>
+                    <br />
+                    <p className={classes.textCenter}>
+                      In collaborations with artist only 200 unique paintings
+                      will be minted in cardano blockchain and only 10 extremely
+                      rare items will come along with the real painting.
+                    </p>
+                    <br />
+                    <p className={classes.textCenter}>
+                      Send there the exact amount of ADA (not more, not less),
+                      using your Yoroi / Daedalus wallet. Once we've confirm the
+                      transaction you will recieve your nft in your wallet.
+                    </p>
+                  </div>
                 ),
               },
               {
                 tabName: "NFT's",
                 tabIcon: Chat,
                 tabContent: (
-                  <p className={classes.textCenter}>
-                    I think that’s a responsibility that I have, to push
-                    possibilities, to show people, this is the level that things
-                    could be at. I will be the leader of a company that ends up
-                    being worth billions of dollars, because I got the answers.
-                    I understand culture. I am the nucleus. I think that’s a
-                    responsibility that I have, to push possibilities, to show
-                    people, this is the level that things could be at.
-                  </p>
+                  <div>
+                    <p className={classes.textCenter}>
+                      This NFT of the original paintings are highly collectable
+                      'UNIQUE' investible assets that have emerged from the
+                      Crypto Blockchain world and are growing rapidly. NFTs are
+                      here to stay and will be the gold standard of provenance
+                      in the future. Once created, they cannot be copied, forged
+                      or manipulated and will last forever.
+                    </p>
+                    <br />
+                    <p className={classes.textCenter}>
+                      A non-fungible token (NFT) is a unit of data stored on a
+                      digital ledger, called a blockchain, that certifies a
+                      digital asset to be unique and therefore not
+                      interchangeable.[1] NFTs can be used to represent items
+                      such as photos, videos, audio and other types of digital
+                      files. Access to any copy of the original file, however,
+                      is not restricted to the buyer of the NFT. While copies of
+                      these digital items are available for anyone to obtain,
+                      NFTs are tracked on blockchains to provide the owner with
+                      a proof of ownership that is separate from copyright.
+                    </p>
+                  </div>
                 ),
               },
               {

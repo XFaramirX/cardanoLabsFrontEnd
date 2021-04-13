@@ -4,7 +4,7 @@ global.fetch = require("node-fetch");
 
 export default class Index extends Component {
   componentDidMount = () => {
-    Router.push("/components");
+    Router.push("/home");
   };
 
   render() {

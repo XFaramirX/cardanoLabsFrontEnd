@@ -23,11 +23,11 @@ export default function ProductSection() {
         <GridItem xs={12} sm={12} md={8}>
           <h2 className={classes.title}>Let{"'"}s talk product</h2>
           <h3 className="font-bold text-black">
-            This is the paragraph where you can write more details about your
-            product. Keep you user engaged by providing meaningful information.
-            Remember that by this time, the user is curious, otherwise he wouldn
-            {"'"}t scroll to get here. Add a button if you want the user to see
-            more.
+            These tokens are unique forever in the future. The minting policy is
+            time based. After a certain period of time there is no way to mint
+            or burn anymore. So you as owner of a token can be ensured it is
+            forever staying at quantity 1 and no one can influence that. This is
+            what makes a token an NFT.
           </h3>
         </GridItem>
       </GridContainer>
@@ -35,8 +35,8 @@ export default function ProductSection() {
         <GridContainer>
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
-              title="Free Chat"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
+              title="Metadata"
+              description="The metadata for each token are on-chain. The metadata itself links to an image on IPFS and Arweave in order to keep the data immutable and retrievable forever. The metadata are in the minting transaction of the token. Check out this example. Scroll down to the metadata and click on them to see them."
               icon={Chat}
               iconColor="info"
               vertical
@@ -44,8 +44,10 @@ export default function ProductSection() {
           </GridItem>
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
-              title="Verified Users"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
+              title="Allowed Wallets"
+              description="Yoroi is currently the only wallet that supports multi assets.
+              Daedalus or Daedalus Flight.
+              Never sent ADA from an exchange!"
               icon={VerifiedUser}
               iconColor="success"
               vertical
@@ -54,7 +56,8 @@ export default function ProductSection() {
           <GridItem xs={12} sm={12} md={4}>
             <InfoArea
               title="Fingerprint"
-              description="Divide details about your product or agency work into parts. Write a few lines about each one. A paragraph describing a feature will be enough."
+              description="*Please be aware that you are purchasing an 'NFT' of the original painting and not the original painting itself.   
+              Only 10 original paintins could be sent along with the token and this involves delivery coordination so If you are unsure of what you are purchasing please revisit our nft section"
               icon={Fingerprint}
               iconColor="danger"
               vertical

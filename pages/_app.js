@@ -89,8 +89,7 @@ export default class MyApp extends App {
           <title>NextJS Material Kit by Creative Tim</title>
         </Head>
         <ApolloProvider client={client}>
-          {" "}
-          <Component {...pageProps} />{" "}
+          <Component {...pageProps} />
         </ApolloProvider>
       </React.Fragment>
     );

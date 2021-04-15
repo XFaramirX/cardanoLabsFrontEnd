@@ -64,26 +64,24 @@ export default function LandingPage(props) {
         </div>
       </Parallax>
 
-      <div className="mt-10">
+      <div className="mt-8">
         <div
           role="contentinfo"
           className={classNames(classes.main, classes.mainRaised)}
         >
           <div className={classes.container}>
-            <div className="pt-4">
-              <div className="py-12 bg-white">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                  <div className="lg:text-center">
-                    <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">
-                      Welcome to CardanoLabs.Art
-                    </h2>
-                    <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
-                      The NFT Marketplace.
-                    </p>
-                    <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
-                      All Products
-                    </p>
-                  </div>
+            <div className="py-12 bg-white">
+              <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div className="lg:text-center">
+                  <h2 className="text-base text-indigo-600 font-semibold tracking-wide uppercase">
+                    Welcome to CardanoLabs.Art
+                  </h2>
+                  <p className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                    The NFT Marketplace.
+                  </p>
+                  <p className="mt-4 max-w-2xl text-xl text-gray-500 lg:mx-auto">
+                    All Products
+                  </p>
                 </div>
 
                 <ImageList />
@@ -94,10 +92,99 @@ export default function LandingPage(props) {
               <Users></Users> */}
             </div>
           </div>
-          <Footer />
         </div>
       </div>
       <div></div>
+      <Footer />
+    </Fragment>
+  );
+}
+
+function HeroContent() {
+  const classes = useStyles();
+  return (
+    <Fragment>
+      <GridItem xs={12} sm={6} md={5}>
+        <div className="py-8 sm:pr-10">
+          <h1 className={classes.title}>
+            Collect your favorite NFT Art on Cardano!.
+          </h1>
+          <p>
+            We aim to help improve the world along with the cardano blockchain,
+            allowing Artists, Investors and Collectors the opportunity to mint
+            their collections on this explosion of interest in NFTS.
+          </p>
+        </div>
+      </GridItem>
+
+      <GridItem xs={12} sm={6} md={7}>
+        <CustomTabs
+          headerColor="primary"
+          tabs={[
+            {
+              tabName: "Buy",
+              tabIcon: Face,
+              tabContent: (
+                <div>
+                  <p className={classes.textCenter}>
+                    Each of these unique and very rare Limited Edition
+                    "paintings" Art based is being minted on the Cardano
+                    Blockchain as a Non Fungible Token (NFT).
+                  </p>
+                  <br />
+
+                  <p className={classes.textCenter}>
+                    In collaborations with artist only 200 unique paintings will
+                    be minted in cardano blockchain and only 10 extremely rare
+                    items will come along with the real painting.
+                  </p>
+                  <br />
+                  <p className={classes.textCenter}>
+                    Send there the exact amount of ADA (not more, not less),
+                    using your Yoroi / Daedalus wallet. Once we've confirm the
+                    transaction you will recieve your nft in your wallet.
+                  </p>
+                </div>
+              ),
+            },
+            {
+              tabName: "NFT's",
+              tabIcon: Chat,
+              tabContent: (
+                <div>
+                  <p className={classes.textCenter}>
+                    This NFT of the original paintings are highly collectable
+                    'UNIQUE' investible assets that have emerged from the Crypto
+                    Blockchain world and are growing rapidly. NFTs are here to
+                    stay and will be the gold standard of provenance in the
+                    future. Once created, they cannot be copied, forged or
+                    manipulated and will last forever.
+                  </p>
+                  <br />
+                  <p className={classes.textCenter}>
+                    A non-fungible token (NFT) is a unit of data stored on a
+                    digital ledger, called a blockchain, that certifies a
+                    digital asset to be unique and therefore not
+                    interchangeable.[1] NFTs can be used to represent items such
+                    as photos, videos, audio and other types of digital files.
+                  </p>
+                </div>
+              ),
+            },
+            {
+              tabName: "Sell",
+              tabIcon: Build,
+              tabContent: <p className={classes.textCenter}>Coming Soon...</p>,
+            },
+          ]}
+        />
+
+        <style jsx>{`
+          p {
+            font-size: 16px;
+          }
+        `}</style>
+      </GridItem>
     </Fragment>
   );
 }
@@ -108,21 +195,21 @@ function ImageCard({ images }) {
 
   return (
     <div className="each mb-10 m-2 shadow-lg border-gray-800 bg-gray-100 relative gallery-image">
-      <a href="#">
+      <a href="#" aria-label={title}>
         <img className="w-full" src={url} alt="" />
       </a>
-      <div className="badge absolute top-0 right-0 bg-indigo-500 m-1 text-gray-200 p-1 px-2 text-xs font-bold rounded">
+      <div className="badge absolute top-0 right-0 bg-indigo-600 m-1 px-2 text-xs font-bold rounded">
         Sold
       </div>
-      <div className="info-box text-xs flex p-1 font-semibold text-gray-500 bg-gray-300">
-        <span className="mr-1 p-1 px-2 font-bold">
-          {attributes !== null ? attributes[0] : "$$$"}
+      <div className="info-box text-xs flex  font-semibold text-black bg-gray-250">
+        <span className="px-1 text-center">
+          {attributes !== null ? attributes[0] : ""}
         </span>
-        <span className="mr-1 p-1 px-2 font-bold border-l border-gray-400">
-          {attributes !== null ? attributes[1] : "$$$"}
+        <span className="px-1 text-center border-l border-gray-400">
+          {attributes !== null ? attributes[1] : ""}
         </span>
-        <span className="mr-1 p-1 px-2 font-bold border-l border-gray-400">
-          {attributes !== null ? attributes[2] : "$$$"}
+        <span className="px-1 text-center border-l border-gray-400">
+          {attributes !== null ? attributes[2] : ""}
         </span>
       </div>
       <div className="desc p-4 text-gray-800">
@@ -137,7 +224,7 @@ function ImageCard({ images }) {
           <a
             href="https://www.youtube.com/user/sam14319"
             target="_new"
-            className="badge bg-indigo-500 text-blue-100 rounded px-1 text-xs font-bold cursor-pointer"
+            className="badge bg-indigo-600 text-white rounded px-1 text-xs font-bold cursor-pointer"
           >
             @Instagram
           </a>
@@ -145,7 +232,7 @@ function ImageCard({ images }) {
           <a
             href="https://www.youtube.com/user/sam14319"
             target="_new"
-            className="badge bg-red-500 text-blue-100 rounded px-1 text-xs font-bold cursor-pointer"
+            className="badge bg-red-600 text-white rounded px-1 text-xs font-bold cursor-pointer"
           >
             No Social Network
           </a>
@@ -187,8 +274,6 @@ function ImageList() {
     }
   `;
 
-  console.log(IMAGES);
-
   const { loading, error, data } = useQuery(IMAGES);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
@@ -200,97 +285,5 @@ function ImageList() {
         ))}
       </div>
     </div>
-  );
-}
-
-function HeroContent() {
-  const classes = useStyles();
-  return (
-    <Fragment>
-      <GridItem xs={12} sm={6} md={5}>
-        <div className="mt-44 pb-6 sm:mr-10">
-          <h1 className={classes.title}>
-            Collect your favorite NFT Art on Cardano!.
-          </h1>
-          <p>
-            We aim to help improve the world along with the cardano blockchain,
-            allowing Artists, Investors and Collectors the opportunity to mint
-            their collections on this explosion of interest in NFTS.
-          </p>
-        </div>
-      </GridItem>
-      <GridItem xs={12} sm={6} md={7}>
-        <div className="sm:pt-40 test ">
-          <CustomTabs
-            headerColor="primary"
-            tabs={[
-              {
-                tabName: "Buy",
-                tabIcon: Face,
-                tabContent: (
-                  <div>
-                    <p className={classes.textCenter}>
-                      Each of these unique and very rare Limited Edition
-                      "paintings" Art based is being minted on the Cardano
-                      Blockchain as a Non Fungible Token (NFT).
-                    </p>
-                    <br />
-
-                    <p className={classes.textCenter}>
-                      In collaborations with artist only 200 unique paintings
-                      will be minted in cardano blockchain and only 10 extremely
-                      rare items will come along with the real painting.
-                    </p>
-                    <br />
-                    <p className={classes.textCenter}>
-                      Send there the exact amount of ADA (not more, not less),
-                      using your Yoroi / Daedalus wallet. Once we've confirm the
-                      transaction you will recieve your nft in your wallet.
-                    </p>
-                  </div>
-                ),
-              },
-              {
-                tabName: "NFT's",
-                tabIcon: Chat,
-                tabContent: (
-                  <div>
-                    <p className={classes.textCenter}>
-                      This NFT of the original paintings are highly collectable
-                      'UNIQUE' investible assets that have emerged from the
-                      Crypto Blockchain world and are growing rapidly. NFTs are
-                      here to stay and will be the gold standard of provenance
-                      in the future. Once created, they cannot be copied, forged
-                      or manipulated and will last forever.
-                    </p>
-                    <br />
-                    <p className={classes.textCenter}>
-                      A non-fungible token (NFT) is a unit of data stored on a
-                      digital ledger, called a blockchain, that certifies a
-                      digital asset to be unique and therefore not
-                      interchangeable.[1] NFTs can be used to represent items
-                      such as photos, videos, audio and other types of digital
-                      files.
-                    </p>
-                  </div>
-                ),
-              },
-              {
-                tabName: "Sell",
-                tabIcon: Build,
-                tabContent: (
-                  <p className={classes.textCenter}>Coming Soon...</p>
-                ),
-              },
-            ]}
-          />
-        </div>
-        <style jsx>{`
-          p {
-            font-size: 16px;
-          }
-        `}</style>
-      </GridItem>
-    </Fragment>
   );
 }

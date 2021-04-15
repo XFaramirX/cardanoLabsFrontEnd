@@ -37,71 +37,38 @@ const useStyles = makeStyles(styles);
 
 import { gql, useQuery } from "@apollo/client";
 
-const BOOKS = gql`
-  query Query {
-    libraries {
-      books {
-        id
-        author {
-          name
-        }
-      }
-    }
-  }
-`;
-
-const USERS = gql`
-  query Query {
-    cats {
-      name
-    }
-  }
-`;
-
-const IMAGES = gql`
-  query Query {
-    images {
-      id
-      title
-      url
-    }
-  }
-`;
-
 export default function LandingPage(props) {
   const classes = useStyles();
   const { ...rest } = props;
 
   return (
     <Fragment>
-      <div role="navigation">
-        <Header
-          color="transparent"
-          routes={dashboardRoutes}
-          brand="Cardanolab.art"
-          rightLinks={<HeaderLinks />}
-          fixed
-          changeColorOnScroll={{
-            height: 400,
-            color: "white",
-          }}
-          {...rest}
-        />
+      <Header
+        color="transparent"
+        routes={dashboardRoutes}
+        brand="Cardanolab.art"
+        rightLinks={<HeaderLinks />}
+        fixed
+        changeColorOnScroll={{
+          height: 400,
+          color: "white",
+        }}
+        {...rest}
+      />
 
-        <Parallax
-          filter
-          responsive
-          image={require("assets/img/landing-bg.jpg")}
-        >
-          <div role="main" className={classes.container}>
-            <GridContainer>
-              <HeroContent />
-            </GridContainer>
-          </div>
-        </Parallax>
-      </div>
+      <Parallax filter responsive image={require("assets/img/landing-bg.jpg")}>
+        <div role="main" className={classes.container}>
+          <GridContainer>
+            <HeroContent />
+          </GridContainer>
+        </div>
+      </Parallax>
+
       <div className="mt-10">
-        <div className={classNames(classes.main, classes.mainRaised)}>
+        <div
+          role="contentinfo"
+          className={classNames(classes.main, classes.mainRaised)}
+        >
           <div className={classes.container}>
             <div className="pt-4">
               <div className="py-12 bg-white">
@@ -118,10 +85,10 @@ export default function LandingPage(props) {
                     </p>
                   </div>
                 </div>
+
+                <ImageList />
               </div>
-              <ImageList />
-            </div>
-            <div role="contentinfo">
+
               <ProductSection />
               {/* <Books></Books>
               <Users></Users> */}
@@ -135,54 +102,27 @@ export default function LandingPage(props) {
   );
 }
 
-function Books() {
-  const { loading, error, data } = useQuery(BOOKS);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-  return data.libraries.map((library) =>
-    library.books.map((book) => {
-      console.log(book.id);
-      return (
-        <div key={book.id}>
-          <div>{book.author.name}</div>
-        </div>
-      );
-    })
-  );
-}
-
-function Users() {
-  const { loading, error, data } = useQuery(USERS);
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-  console.log(data);
-  return <div>hello</div>;
-}
-
-const Transition = React.forwardRef(function Transition(props, ref) {
-  return <Slide direction="down" ref={ref} {...props} />;
-});
-
-Transition.displayName = "Transition";
-
 function ImageCard({ images }) {
-  const classes = useStyles();
-  const { id, title, url } = images;
+  const { id, title, url, attributes, description, artist } = images;
   const [classicModal, setClassicModal] = React.useState(false);
-  console.log("IMAGE" + title);
+
   return (
     <div className="each mb-10 m-2 shadow-lg border-gray-800 bg-gray-100 relative gallery-image">
-      <img className="w-full" src={url} alt="" />
+      <a href="#">
+        <img className="w-full" src={url} alt="" />
+      </a>
       <div className="badge absolute top-0 right-0 bg-indigo-500 m-1 text-gray-200 p-1 px-2 text-xs font-bold rounded">
         Sold
       </div>
       <div className="info-box text-xs flex p-1 font-semibold text-gray-500 bg-gray-300">
-        <span className="mr-1 p-1 px-2 font-bold">105 views</span>
-        <span className="mr-1 p-1 px-2 font-bold border-l border-gray-400">
-          105 Likes
+        <span className="mr-1 p-1 px-2 font-bold">
+          {attributes !== null ? attributes[0] : "$$$"}
         </span>
         <span className="mr-1 p-1 px-2 font-bold border-l border-gray-400">
-          105 Dislikes
+          {attributes !== null ? attributes[1] : "$$$"}
+        </span>
+        <span className="mr-1 p-1 px-2 font-bold border-l border-gray-400">
+          {attributes !== null ? attributes[2] : "$$$"}
         </span>
       </div>
       <div className="desc p-4 text-gray-800">
@@ -191,17 +131,28 @@ function ImageCard({ images }) {
           target="_new"
           className="title font-bold block cursor-pointer hover:underline"
         >
-          Pubg Mobile Custom Room (Unlimited)
+          {title}
         </a>
-        <a
-          href="https://www.youtube.com/user/sam14319"
-          target="_new"
-          className="badge bg-indigo-500 text-blue-100 rounded px-1 text-xs font-bold cursor-pointer"
-        >
-          @dynamo_gaming
-        </a>
+        {artist.instagram !== null ? (
+          <a
+            href="https://www.youtube.com/user/sam14319"
+            target="_new"
+            className="badge bg-indigo-500 text-blue-100 rounded px-1 text-xs font-bold cursor-pointer"
+          >
+            @Instagram
+          </a>
+        ) : (
+          <a
+            href="https://www.youtube.com/user/sam14319"
+            target="_new"
+            className="badge bg-red-500 text-blue-100 rounded px-1 text-xs font-bold cursor-pointer"
+          >
+            No Social Network
+          </a>
+        )}
+
         <span className="description text-sm block py-2 border-gray-400 mb-2">
-          lorem ipsum bekhum bukhum !lorem ipsum bekhum bukhum !
+          {description !== null ? description : "No description"}
         </span>
       </div>
       <style jsx>{`
@@ -209,10 +160,9 @@ function ImageCard({ images }) {
           height: 300px;
           object-fit: contain;
         }
-      `}</style>
-      <style jsx global>{`
+        ,
         p {
-          font-size: 18px;
+          font-size: 16px;
         }
       `}</style>
     </div>
@@ -220,10 +170,28 @@ function ImageCard({ images }) {
 }
 
 function ImageList() {
+  const IMAGES = gql`
+    query Query {
+      images {
+        id
+        title
+        url
+        attributes
+        description
+        artist {
+          id
+          name
+          instagram
+        }
+      }
+    }
+  `;
+
+  console.log(IMAGES);
+
   const { loading, error, data } = useQuery(IMAGES);
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
-  console.log(data.images);
   return (
     <div className="">
       <div className="holder mx-auto w-10/12 grid sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -240,7 +208,7 @@ function HeroContent() {
   return (
     <Fragment>
       <GridItem xs={12} sm={6} md={5}>
-        <div className="py-10">
+        <div className="mt-44 pb-6 sm:mr-10">
           <h1 className={classes.title}>
             Collect your favorite NFT Art on Cardano!.
           </h1>
@@ -252,7 +220,7 @@ function HeroContent() {
         </div>
       </GridItem>
       <GridItem xs={12} sm={6} md={7}>
-        <div className="py-42">
+        <div className="sm:pt-40 test ">
           <CustomTabs
             headerColor="primary"
             tabs={[
@@ -267,6 +235,7 @@ function HeroContent() {
                       Blockchain as a Non Fungible Token (NFT).
                     </p>
                     <br />
+
                     <p className={classes.textCenter}>
                       In collaborations with artist only 200 unique paintings
                       will be minted in cardano blockchain and only 10 extremely
@@ -301,11 +270,7 @@ function HeroContent() {
                       digital asset to be unique and therefore not
                       interchangeable.[1] NFTs can be used to represent items
                       such as photos, videos, audio and other types of digital
-                      files. Access to any copy of the original file, however,
-                      is not restricted to the buyer of the NFT. While copies of
-                      these digital items are available for anyone to obtain,
-                      NFTs are tracked on blockchains to provide the owner with
-                      a proof of ownership that is separate from copyright.
+                      files.
                     </p>
                   </div>
                 ),
@@ -320,6 +285,11 @@ function HeroContent() {
             ]}
           />
         </div>
+        <style jsx>{`
+          p {
+            font-size: 16px;
+          }
+        `}</style>
       </GridItem>
     </Fragment>
   );

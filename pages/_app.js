@@ -45,7 +45,7 @@ Router.events.on("routeChangeError", () => {
 });
 
 const client = new ApolloClient({
-  uri: "http://localhost:4000/",
+  uri: "https://fathomless-escarpment-90423.herokuapp.com/",
   cache: new InMemoryCache(),
 });
 
